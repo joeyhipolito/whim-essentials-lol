@@ -2,7 +2,6 @@ var express  = require('express');
 var app      = express();
 
 var path     = require('path');
-var favicon  = require('static-favicon');
 var logger   = require('morgan');
 var passport = require('passport');
 var mongoose = require('mongoose');
@@ -17,16 +16,13 @@ var configDB = require('./config/db.js');
 mongoose.connect(configDB.url);
 require('./config/passport')(passport);
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
-app.use(favicon());
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
 // passport requisites
 app.use(session({
@@ -39,8 +35,6 @@ app.use(passport.session());
 
 // routes
 require('./routes/routes.js')(app,passport);
-
-
 
 
 /// catch 404 and forward to error handler

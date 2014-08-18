@@ -1,0 +1,4 @@
+user authentication
+  sudo docker build -t whim/<user_id>
+  sudo docker run -name <user_id> whim/<user_id>
+  
