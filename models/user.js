@@ -10,6 +10,7 @@ var userSchema = mongoose.Schema({
   },
   name          : String,
   token         : String,
+  email         : String,
   username      : String,
   createdAt     : { type: Date, default: Date.now }
 });
