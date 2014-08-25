@@ -5,7 +5,6 @@ var User = require('../models/user');
 var configAuth = require('./auth');
 
 module.exports = function(passport) {
-  
   passport.use(new GithubStrategy(
   {
     clientID     : configAuth.githubAuth.clientID,
@@ -14,12 +13,13 @@ module.exports = function(passport) {
   },
   function(token, refreshToken, profile, done) {
     // async
+    console.log(token);
+    console.log(profile);
     process.nextTick(function() {
       User.findOne({'github.id' : profile.id}, function(err, user){
         if (err) {
           return done(err);
         }
-
         if (user) {
           return done(null, user);
         } else {

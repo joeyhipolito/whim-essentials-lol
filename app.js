@@ -1,21 +1,19 @@
 var express  = require('express');
 var app      = express();
 
-var path     = require('path');
 var logger   = require('morgan');
 var passport = require('passport');
 var mongoose = require('mongoose');
 
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
-var session = require('express-session');
+var session      = require('express-session');
 
 var configDB = require('./config/db.js');
 
 // configs
 mongoose.connect(configDB.url);
 require('./config/passport')(passport);
-
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -30,6 +28,7 @@ app.use(session({
     saveUninitialized: true,
     resave: true
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
